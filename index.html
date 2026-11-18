@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quiz de inglés: Computación</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;background:#46178f;color:#fff;margin:0;padding:16px;text-align:center}
+#top{display:flex;justify-content:space-between;font-weight:bold;max-width:800px;margin:0 auto 10px}
+#q{font-size:22px;background:#fff;color:#222;border-radius:10px;padding:20px;max-width:800px;margin:10px auto}
+#cat{font-size:13px;opacity:.7;margin-bottom:6px}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:800px;margin:0 auto}
+@media(max-width:600px){#opts{grid-template-columns:1fr}}
+button.o{font-size:17px;color:#fff;border:0;border-radius:8px;padding:20px 10px;cursor:pointer;font-weight:600}
+button.o:nth-child(1){background:#e21b3c}button.o:nth-child(2){background:#1368ce}
+button.o:nth-child(3){background:#d89e00}button.o:nth-child(4){background:#26890c}
+button.o:disabled{opacity:.45;cursor:default}
+button.o.ok{opacity:1;outline:5px solid #fff}
+#fb{max-width:800px;margin:14px auto;font-size:16px;min-height:50px}
+#next,.tab{font-size:17px;padding:9px 22px;border:0;border-radius:8px;background:#fff;color:#46178f;font-weight:bold;cursor:pointer}
+#next{display:none}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:6px;font-size:14px}th{background:#eee}
+</style></head><body>
+<div style="margin-bottom:12px"><button class="tab" onclick="tab('quiz')">🎮 Quiz</button> <button class="tab" onclick="tab('guide')">📖 Guía</button></div>
+<div id="quiz">
+<div id="top"><span id="prog"></span><span id="score"></span><span id="streak"></span></div>
+<div id="q"></div><div id="opts"></div><div id="fb"></div><button id="next">Siguiente ▶</button></div>
+<div id="guide" style="display:none;max-width:800px;margin:0 auto;text-align:left;background:#fff;color:#222;border-radius:10px;padding:18px">
+<h2>Tiempos: pistas y estructura</h2>
+<table><tr><th>Tiempo</th><th>Palabras clave</th><th>Activa</th><th>Pasiva</th></tr>
+<tr><td>Presente simple</td><td>always, usually, every day</td><td>writes/write</td><td>is/are + participio</td></tr>
+<tr><td>Pasado simple</td><td>yesterday, last week, ago</td><td>wrote</td><td>was/were + participio</td></tr>
+<tr><td>Futuro</td><td>tomorrow, next week, soon</td><td>will write</td><td>will be + participio</td></tr>
+<tr><td>Presente perfecto</td><td>already, yet, just, ever, since, for</td><td>has/have written</td><td>has/have been + participio</td></tr>
+<tr><td>Pasado perfecto</td><td>before, by the time, after</td><td>had written</td><td>had been + participio</td></tr></table>
+<h2>Activa → pasiva (5 pasos)</h2>
+<ol><li>Identifica el tiempo.</li><li>El objeto pasa a ser el nuevo sujeto.</li><li>To be en el mismo tiempo, concordando con el nuevo sujeto.</li><li>Participio.</li><li>by + pronombre objeto (me, him, her, us, them).</li></ol>
+<h2>Participios útiles en computación</h2>
+<p>write–wrote–<b>written</b> · steal–stole–<b>stolen</b> · break–broke–<b>broken</b> · build–built–built · send–sent–sent · find–found–found · make–made–made · run–ran–<b>run</b> · begin–began–<b>begun</b> · give–gave–<b>given</b> · take–took–<b>taken</b> · do–did–<b>done</b> · save–saved–saved · delete–deleted–deleted · install–installed–installed</p>
+<h2>Estilo indirecto</h2>
+<table><tr><th>Directo</th><th>Indirecto</th></tr>
+<tr><td>presente simple</td><td>pasado simple</td></tr><tr><td>presente continuo</td><td>pasado continuo</td></tr>
+<tr><td>pasado simple</td><td>pasado perfecto</td></tr><tr><td>presente perfecto</td><td>pasado perfecto</td></tr>
+<tr><td>will / can</td><td>would / could</td></tr></table>
+<p>today → that day · tomorrow → the next day · yesterday → the day before · now → then · next week → the following week · here → there · this → that · I → he/she · we → they · my → his/her</p>
+<h2>Checklist</h2>
+<p>1) ¿Qué tiempo es? 2) ¿Sujeto singular o plural? 3) ¿Participio correcto? 4) ¿Puse <b>been</b> en perfectos? 5) ¿Pronombre de objeto tras by? 6) En indirecto: tiempo, pronombre y marcador.</p>
+</div>
+<script>
+const Q=[
+["Pasiva presente","The programmer writes the code. →",["The code is written by the programmer.","The code are written by the programmer.","The code was written by the programmer.","The code is wrote by the programmer."],0,"Presente: is/are + participio. 'Code' singular → is. Write–wrote–written."],
+["Pasiva presente","The computer stores the files. →",["The files is stored by the computer.","The files are stored by the computer.","The files were stored by the computer.","The files are store by the computer."],1,"'Files' plural → are."],
+["Pasiva presente","Users install programs. →",["Programs are installed by users.","Programs is installed by users.","Programs were installed by users.","Programs are install by users."],0,"Presente + plural → are installed."],
+["Pasiva pasado","The engineer designed the software. →",["The software is designed by the engineer.","The software were designed by the engineer.","The software was designed by the engineer.","The software was design by the engineer."],2,"Pasado + singular → was designed."],
+["Pasiva pasado","Hackers stole the passwords. →",["The passwords was stolen by hackers.","The passwords were stolen by hackers.","The passwords are stolen by hackers.","The passwords were stole by hackers."],1,"Pasado + plural → were. Steal–stole–stolen."],
+["Pasiva pasado","The student deleted the file. →",["The file was deleted by the student.","The file is deleted by the student.","The file were deleted by the student.","The file was delete by the student."],0,"Pasado + singular → was deleted."],
+["Pasiva futuro","The team will release the app. →",["The app is released by the team.","The app will released by the team.","The app would be released by the team.","The app will be released by the team."],3,"Futuro: will be + participio."],
+["Pasiva futuro","They will test the program. →",["The program will be tested by they.","The program will be tested by them.","The program is tested by them.","The program would tested by them."],1,"Después de by: pronombre objeto (them)."],
+["Pasiva futuro","The company will update the system. →",["The system will be updated by the company.","The system is updated by the company.","The system will updated by the company.","The system was updated by the company."],0,"will be + updated."],
+["Pasiva pres. perfecto","The developer has fixed the bug. →",["The bug has fixed by the developer.","The bug is fixed by the developer.","The bug has been fixed by the developer.","The bug have been fixed by the developer."],2,"has/have been + participio. Bug singular → has."],
+["Pasiva pres. perfecto","They have built a website. →",["A website has been built by them.","A website have been built by them.","A website was been built by them.","A website has been build by them."],0,"Build–built–built; website singular → has been."],
+["Pasiva pres. perfecto","Engineers have created new apps. →",["New apps has been created by engineers.","New apps have been created by engineers.","New apps have created by engineers.","New apps were been created by engineers."],1,"Apps plural → have been created."],
+["Pasiva pas. perfecto","The server had saved the data. →",["The data was saved by the server.","The data has been saved by the server.","The data had been saved by the server.","The data had saved by the server."],2,"had been + participio (had no cambia)."],
+["Pasiva pas. perfecto","The virus had damaged the computer. →",["The computer had been damaged by the virus.","The computer has been damaged by the virus.","The computer was been damaged by the virus.","The computer had been damage by the virus."],0,"Past perfect passive: had been + damaged."],
+["Pasiva → activa","The app is used by millions of people. →",["Millions of people used the app.","Millions of people use the app.","Millions of people have used the app.","Millions of people will use the app."],1,"Presente → use."],
+["Pasiva → activa","The program was written by her. →",["She writes the program.","She has written the program.","She wrote the program.","She will write the program."],2,"Pasado → wrote. (by her → she)"],
+["Pasiva → activa","The database will be updated by the admin. →",["The admin will update the database.","The admin would update the database.","The admin updates the database.","The admin updated the database."],0,"Futuro → will update."],
+["Pasiva → activa","The error has been found by the tester. →",["The tester found the error.","The tester has found the error.","The tester had found the error.","The tester finds the error."],1,"Presente perfecto → has found."],
+["Pasiva → activa","The files had been deleted by him. →",["He deleted the files.","He has deleted the files.","He had deleted the files.","He deletes the files."],2,"Pasado perfecto → had deleted."],
+["Estilo indirecto","“I am writing code today,” Sara said. →",["Sara said that she is writing code today.","Sara said that she was writing code that day.","Sara said that he was writing code that day.","Sara said that she wrote code that day."],1,"am writing → was writing; today → that day; I → she."],
+["Estilo indirecto","“We will launch the app tomorrow,” they said. →",["They said that they would launch the app the next day.","They said that we will launch the app tomorrow.","They said that they will launch the app the next day.","They said that they would launched the app."],0,"will → would; we → they; tomorrow → the next day."],
+["Estilo indirecto","“I can’t open the file,” Luis said. →",["Luis said that he can’t open the file.","Luis said that he couldn’t open the file.","Luis said that I couldn’t open the file.","Luis said that he wouldn’t opened the file."],1,"can → could."],
+["Estilo indirecto","“My laptop is slow,” Tom said. →",["Tom said that my laptop was slow.","Tom said that his laptop is slow.","Tom said that his laptop was slow.","Tom said that his laptop were slow."],2,"my → his; is → was."],
+["Indirecto + perfecto","“I have installed the software,” the boss said. →",["The boss said that she has installed the software.","The boss said that she had installed the software.","The boss said that she installed the softwares.","The boss said that she would installed the software."],1,"Presente perfecto → pasado perfecto (had + participio)."],
+["Indirecto + pasado","“I fixed the bug,” Ana said. →",["Ana said that she fixes the bug.","Ana said that she has fixed the bug.","Ana said that she had fixed the bug.","Ana said that I had fixed the bug."],2,"Pasado simple → pasado perfecto."],
+["Indirecto + pasiva","“The program was tested,” she said. →",["She said that the program was tested.","She said that the program had been tested.","She said that the program has been tested.","She said that the program would be tested."],1,"was tested → had been tested."],
+["Indirecto + pasiva","“The website will be updated,” Tom said. →",["Tom said that the website would be updated.","Tom said that the website will be updated.","Tom said that the website would updated.","Tom said that the website was updated."],0,"will be → would be."],
+["Pronombres","The code was written by ___ (they).",["they","them","their","theirs"],1,"Después de by → them."],
+["Participios","The password has been ___ by a hacker (steal).",["stole","stealed","stolen","steal"],2,"Steal–stole–stolen."],
+["Concordancia","The program ___ installed by the user (present perfect).",["have been","has been","is been","was been"],1,"Program singular → has been installed."]
+];
+let i=0,score=0,streak=0,correct=0,order=[...Q.keys()].sort(()=>Math.random()-.5);
+const $=id=>document.getElementById(id);
+function tab(t){$('quiz').style.display=t=='quiz'?'block':'none';$('guide').style.display=t=='guide'?'block':'none';}
+function show(){
+ if(i>=Q.length){$("q").innerHTML="🏁 Terminaste<br>Puntos: "+score+"<br>Aciertos: "+correct+"/"+Q.length+" ("+Math.round(correct/Q.length*100)+"%)";$("opts").innerHTML="";$("fb").innerHTML="";$("next").style.display="none";return;}
+ const [c,t,o]=Q[order[i]];
+ $("prog").textContent="Pregunta "+(i+1)+"/"+Q.length;$("score").textContent="⭐ "+score;$("streak").textContent="🔥 "+streak;
+ $("q").innerHTML='<div id="cat">'+c+'</div>'+t;$("fb").textContent="";$("next").style.display="none";
+ $("opts").innerHTML="";
+ [0,1,2,3].sort(()=>Math.random()-.5).forEach(k=>{const b=document.createElement("button");b.className="o";b.textContent=o[k];b.dataset.k=k;b.onclick=()=>pick(k);$("opts").appendChild(b);});
+}
+function pick(k){
+ const [c,t,o,a,e]=Q[order[i]];
+ document.querySelectorAll("button.o").forEach(x=>{x.disabled=true;if(+x.dataset.k===a)x.classList.add("ok");});
+ if(k===a){correct++;streak++;score+=100+Math.min(streak,5)*20;$("fb").textContent="✅ ¡Correcto! "+e;}
+ else{streak=0;$("fb").textContent="❌ Respuesta: "+o[a]+". "+e;}
+ $("score").textContent="⭐ "+score;$("streak").textContent="🔥 "+streak;$("next").style.display="inline-block";
+}
+$("next").onclick=()=>{i++;show();};
+show();
+</script></body></html>

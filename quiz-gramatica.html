@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Quiz de inglés</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;background:#46178f;color:#fff;margin:0;padding:20px;text-align:center}
+#top{display:flex;justify-content:space-between;font-weight:bold;max-width:800px;margin:0 auto 10px}
+#q{font-size:24px;background:#fff;color:#222;border-radius:10px;padding:22px;max-width:800px;margin:10px auto}
+#cat{font-size:13px;opacity:.8;margin-bottom:6px}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:800px;margin:0 auto}
+button.o{font-size:18px;color:#fff;border:0;border-radius:8px;padding:22px 10px;cursor:pointer;font-weight:600}
+button.o:nth-child(1){background:#e21b3c}button.o:nth-child(2){background:#1368ce}
+button.o:nth-child(3){background:#d89e00}button.o:nth-child(4){background:#26890c}
+button.o:disabled{opacity:.45;cursor:default}
+button.o.ok{opacity:1;outline:5px solid #fff}
+#fb{max-width:800px;margin:14px auto;font-size:17px;min-height:50px}
+#next{font-size:18px;padding:10px 28px;border:0;border-radius:8px;background:#fff;color:#46178f;font-weight:bold;cursor:pointer;display:none}
+</style></head><body>
+<div style="margin-bottom:12px"><button class="tab" onclick="tab('quiz')">🎮 Quiz</button> <button class="tab" onclick="tab('guide')">📖 Guía de repaso</button></div>
+<div id="quiz">
+<div id="top"><span id="prog"></span><span id="score"></span><span id="streak"></span></div>
+<div id="q"></div><div id="opts"></div><div id="fb"></div><button id="next">Siguiente ▶</button></div>
+<div id="guide" style="display:none;max-width:800px;margin:0 auto;text-align:left;background:#fff;color:#222;border-radius:10px;padding:18px">
+<h2>Tiempos: pistas y estructura</h2>
+<table><tr><th>Tiempo</th><th>Palabras clave</th><th>Activa</th><th>Pasiva</th></tr>
+<tr><td>Presente simple</td><td>always, usually, every day, never</td><td>writes/write</td><td>is/are + participio</td></tr>
+<tr><td>Pasado simple</td><td>yesterday, last week, ago</td><td>wrote</td><td>was/were + participio</td></tr>
+<tr><td>Futuro</td><td>tomorrow, next week, soon</td><td>will write</td><td>will be + participio</td></tr>
+<tr><td>Presente perfecto</td><td>already, yet, just, ever, since, for</td><td>has/have written</td><td>has/have been + participio</td></tr>
+<tr><td>Pasado perfecto</td><td>before, by the time, after</td><td>had written</td><td>had been + participio</td></tr></table>
+<h2>Activa → pasiva (5 pasos)</h2>
+<ol><li>Identifica el tiempo del verbo.</li><li>El objeto pasa a ser el nuevo sujeto.</li><li>To be en el mismo tiempo, concordando con el nuevo sujeto.</li><li>Participio del verbo.</li><li>by + pronombre objeto (me, him, her, us, them).</li></ol>
+<h2>Participios irregulares</h2>
+<p>break–broke–<b>broken</b> · write–wrote–<b>written</b> · eat–ate–<b>eaten</b> · drink–drank–<b>drunk</b> · sing–sang–<b>sung</b> · steal–stole–<b>stolen</b> · do–did–<b>done</b> · see–saw–<b>seen</b> · take–took–<b>taken</b> · give–gave–<b>given</b> · build–built–built · buy–bought–bought · make–made–made · find–found–found · send–sent–sent</p>
+<h2>Estilo indirecto: retroceso</h2>
+<table><tr><th>Directo</th><th>Indirecto</th></tr>
+<tr><td>presente simple</td><td>pasado simple</td></tr><tr><td>presente continuo</td><td>pasado continuo</td></tr>
+<tr><td>pasado simple</td><td>pasado perfecto</td></tr><tr><td>presente perfecto</td><td>pasado perfecto</td></tr>
+<tr><td>will / can</td><td>would / could</td></tr></table>
+<h2>Marcadores y pronombres</h2>
+<p>today → that day · tomorrow → the next day · yesterday → the day before · now → then · next week → the following week · last week → the week before · here → there · this → that · I → he/she · we → they</p>
+<h2>Checklist</h2>
+<p>1) ¿Qué tiempo es? 2) ¿Sujeto singular o plural? 3) ¿Participio correcto? 4) ¿Puse <b>been</b> en perfectos? 5) ¿Pronombre de objeto tras by? 6) En indirecto: tiempo, pronombre y marcador.</p>
+</div>
+<style>.tab{font-size:16px;padding:8px 18px;border:0;border-radius:8px;background:#fff;color:#46178f;font-weight:bold;cursor:pointer}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:6px;font-size:14px}th{background:#eee}</style>
+<script>function tab(t){document.getElementById('quiz').style.display=t=='quiz'?'block':'none';document.getElementById('guide').style.display=t=='guide'?'block':'none';}</script>
+<script>
+const Q=[
+["Pasiva presente","The company produces shoes. →",["Shoes are produced by the company.","Shoes is produced by the company.","Shoes were produced by the company.","Shoes are produce by the company."],0,"Presente: is/are + participio. 'Shoes' es plural → are."],
+["Pasiva presente","My mother cooks rice. →",["The rice are cooked by my mother.","The rice is cooked by my mother.","The rice was cooked by my mother.","The rice is cook by my mother."],1,"'Rice' es singular/incontable → is."],
+["Pasiva pasado","The kids broke the vase. →",["The vase is broken by the kids.","The vase was broke by the kids.","The vase was broken by the kids.","The vase were broken by the kids."],2,"Pasado: was/were + participio. Break–broke–broken."],
+["Pasiva pasado","The police found the evidence. →",["The evidence was found by the police.","The evidence is found by the police.","The evidence were found by the police.","The evidence was find by the police."],0,"Find–found–found; 'evidence' singular → was."],
+["Pasiva futuro","The teacher will correct the exams. →",["The exams are corrected by the teacher.","The exams will be corrected by the teacher.","The exams would be corrected by the teacher.","The exams will corrected by the teacher."],1,"Futuro: will be + participio."],
+["Pasiva futuro","They will paint the house. →",["The house will be painted by they.","The house will be painted by them.","The house is painted by them.","The house would painted by them."],1,"Después de 'by' va pronombre objeto: them."],
+["Pasiva pres. perfecto","Tom has cleaned the room. →",["The room has cleaned by Tom.","The room is cleaned by Tom.","The room has been cleaned by Tom.","The room have been cleaned by Tom."],2,"Presente perfecto pasivo: has/have been + participio. Room singular → has."],
+["Pasiva pres. perfecto","They have built a bridge. →",["A bridge has been built by them.","A bridge have been built by them.","A bridge was built by them.","A bridge has been build by them."],0,"Bridge singular → has been. Build–built–built."],
+["Pasiva pres. perfecto","The kids have eaten the cakes. →",["The cakes has been eaten by the kids.","The cakes have been eaten by the kids.","The cakes have eaten by the kids.","The cakes were been eaten by the kids."],1,"Cakes plural → have been eaten."],
+["Pasiva pas. perfecto","Ana had finished the work. →",["The work was finished by Ana.","The work has been finished by Ana.","The work had been finished by Ana.","The work had finished by Ana."],2,"Pasado perfecto pasivo: had been + participio (had no cambia)."],
+["Pasiva pas. perfecto","The thieves had stolen the car. →",["The car had been stolen by the thieves.","The car has been stolen by the thieves.","The car was been stolen by the thieves.","The car had been stole by the thieves."],0,"Steal–stole–stolen."],
+["Pasiva → activa","The window is cleaned by Ana. →",["Ana cleaned the window.","Ana cleans the window.","Ana is cleaning the window.","Ana has cleaned the window."],1,"El tiempo se mantiene: presente → cleans."],
+["Pasiva → activa","The cake was made by my aunt. →",["My aunt makes the cake.","My aunt will make the cake.","My aunt made the cake.","My aunt has made the cake."],2,"Pasado simple → made."],
+["Pasiva → activa","The letters will be sent by Paul. →",["Paul will send the letters.","Paul would send the letters.","Paul sends the letters.","Paul sent the letters."],0,"Futuro → will + verbo base. 'Would' no es futuro simple."],
+["Pasiva → activa","The window has been broken by them. →",["They broke the window.","They have broken the window.","They had broken the window.","They break the window."],1,"Presente perfecto → have broken."],
+["Pasiva → activa","The report had been written by her. →",["She wrote the report.","She has written the report.","She had written the report.","She writes the report."],2,"Pasado perfecto → had written."],
+["Estilo indirecto","“I am working today,” Sara said. →",["Sara said that she is working today.","Sara said that she was working that day.","Sara said that he was working that day.","Sara said that she works that day."],1,"am working → was working; today → that day; I → she."],
+["Estilo indirecto","“We will travel tomorrow,” they said. →",["They said that they would travel the next day.","They said that we will travel tomorrow.","They said that they will travel the next day.","They said that they would travelled tomorrow."],0,"will → would; we → they; tomorrow → the next day."],
+["Estilo indirecto","“I can’t come tomorrow,” Luis said. →",["Luis said that he can’t come the next day.","Luis said that he couldn’t come the next day.","Luis said that I couldn’t come tomorrow.","Luis said that he wouldn’t came the next day."],1,"can → could; tomorrow → the next day."],
+["Estilo indirecto","“We are studying,” they said. →",["They said that they are studying.","They said that we were studying.","They said that they were studying.","They said that they studied."],2,"Presente continuo → pasado continuo."],
+["Indirecto + perfecto","“I have finished the report,” the boss said. →",["The boss said that she has finished the report.","The boss said that she had finished the report.","The boss said that she finished the reports.","The boss said that she would finished the report."],1,"Presente perfecto → pasado perfecto (had + participio)."],
+["Indirecto + perfecto","“She has bought a car,” Mark said. →",["Mark said that she has bought a car.","Mark said that she bought a car now.","Mark said that she had bought a car.","Mark said that she had buy a car."],2,"has bought → had bought."],
+["Indirecto + pasado","“I broke the glass,” Ben said. →",["Ben said that he broke the glass.","Ben said that he had broken the glass.","Ben said that he has broken the glass.","Ben said that he breaks the glass."],1,"Pasado simple → pasado perfecto (had broken). Ambos 'broke' e 'had broken' se aceptan a veces, pero en examen usa had + participio."],
+["Indirecto + pasiva","“The cake was eaten,” she said. →",["She said that the cake was ate.","She said that the cake had been eaten.","She said that the cake has been eaten.","She said that the cake will be eaten."],1,"was eaten → had been eaten."],
+["Indirecto + pasiva","“The house will be painted,” Tom said. →",["Tom said that the house would be painted.","Tom said that the house will be painted.","Tom said that the house would painted.","Tom said that the house was painted."],0,"will be → would be."],
+["Pronombres","The emails are written by ___ (she).",["she","her","hers","herself"],1,"Después de 'by' → pronombre objeto: her."],
+["Participios","Choose the correct participle: The song has been ___ by the children (sing).",["sang","sung","sing","singed"],1,"Sing–sang–sung."],
+["Participios","The meat ___ eaten by the dogs.",["are","is","were been","have"],1,"'Meat' es incontable → is."],
+["Concordancia","The doors ___ opened by the students (present perfect).",["has been","have been","is been","was been"],1,"Doors plural → have been opened."]
+];
+let i=0,score=0,streak=0,order=[...Q.keys()].sort(()=>Math.random()-.5);
+const $=id=>document.getElementById(id);
+function show(){
+ if(i>=Q.length){$("q").innerHTML="🏁 Terminaste<br>Puntos: "+score+"<br>Nota: "+Math.round(correct/Q.length*100)+"%";$("opts").innerHTML="";$("fb").innerHTML="";$("next").style.display="none";return;}
+ const [c,t,o,a]=Q[order[i]];
+ $("prog").textContent="Pregunta "+(i+1)+"/"+Q.length;$("score").textContent="⭐ "+score;$("streak").textContent="🔥 "+streak;
+ $("q").innerHTML='<div id="cat">'+c+'</div>'+t;$("fb").textContent="";$("next").style.display="none";
+ const idx=[0,1,2,3].sort(()=>Math.random()-.5);
+ $("opts").innerHTML="";
+ idx.forEach(k=>{const b=document.createElement("button");b.className="o";b.textContent=o[k];b.onclick=()=>pick(k,b);b.dataset.k=k;$("opts").appendChild(b);});
+}
+let correct=0;
+function pick(k,b){
+ const [c,t,o,a,e]=Q[order[i]];
+ document.querySelectorAll("button.o").forEach(x=>{x.disabled=true;if(+x.dataset.k===a)x.classList.add("ok");});
+ if(k===a){correct++;streak++;score+=100+Math.min(streak,5)*20;$("fb").textContent="✅ ¡Correcto! "+e;}
+ else{streak=0;$("fb").textContent="❌ Respuesta: "+o[a]+". "+e;}
+ $("score").textContent="⭐ "+score;$("streak").textContent="🔥 "+streak;$("next").style.display="inline-block";
+}
+$("next").onclick=()=>{i++;show();};
+show();
+</script></body></html>
